@@ -1,7 +1,7 @@
-const { Schema, default: mongoose } = require("mongoose")
+const mongoose = require("mongoose")
 const bcrypt = require("bcrypt")
 
-const UserSchema = Schema(
+const UserSchema = mongoose.Schema(
   {
     name: {
       type: String,
@@ -20,14 +20,17 @@ const UserSchema = Schema(
         message: (props) => `${props.value} is not a valid email`
       }
     },
+
     password: {
       type: String,
       required: [true, "is required"]
     },
+
     isAdmin: {
       type: Boolean,
       default: false
     },
+
     cart: {
       type: Object,
       default: {
@@ -41,7 +44,7 @@ const UserSchema = Schema(
       default: []
     },
 
-    orders: [{ type: Schema.Types.ObjectId, ref: "Order" }]
+    orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }]
   },
   { minimize: false }
 )
@@ -84,4 +87,5 @@ UserSchema.pre("remove", function (next) {
 })
 
 const User = mongoose.model("User", UserSchema)
+
 module.exports = User
