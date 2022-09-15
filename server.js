@@ -4,6 +4,7 @@ const app = express()
 const http = require("http")
 const server = http.createServer(app)
 const { Server } = require("socket.io")
+require("./connection")
 
 const io = new Server(server, {
   cors: "*",
