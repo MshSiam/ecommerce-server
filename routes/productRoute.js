@@ -13,6 +13,19 @@ router.get("/", async (req, res) => {
   }
 })
 
+// get a product
+
+router.get("/:id", async (req, res) => {
+  const { id } = req.params
+  try {
+    const product = await Product.findById(id)
+    const similar = await Product.find({ category: product.category }).limit(5)
+    res.status(200).json({ product, similar })
+  } catch (e) {
+    res.status(400).send(e.message)
+  }
+})
+
 //create product
 router.post("/", async (req, res) => {
   try {
