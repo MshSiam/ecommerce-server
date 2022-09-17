@@ -26,6 +26,22 @@ router.get("/:id", async (req, res) => {
   }
 })
 
+// get product according to category
+router.get("/category/:category", async (req, res) => {
+  const { category } = req.params
+  try {
+    let products
+    if (category === "all") {
+      products = await Product.find().sort([["date", -1]])
+    } else {
+      products = await Product.find({ category })
+    }
+    res.status(200).json(products)
+  } catch (error) {
+    res.status(400).send(error.message)
+  }
+})
+
 //create product
 router.post("/", async (req, res) => {
   try {
