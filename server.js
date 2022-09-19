@@ -45,6 +45,10 @@ app.post("/create-payment", async (req, res) => {
   }
 })
 
-server.listen(5000, () => {
+app.get("/", async (req, res) => {
+  res.send("server running")
+})
+
+server.listen(process.env.PORT || 5000, () => {
   console.log("server is running")
 })
